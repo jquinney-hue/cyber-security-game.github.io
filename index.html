@@ -502,7 +502,10 @@
 
             const sendEmail = (subject, body, isMalicious) => {
                 setEmails(prev => [{ id: Date.now(), from: isMalicious ? 'Unknown' : 'System', subject, body, read: false }, ...prev]);
-                if (!activeWindows.includes('email')) setActiveWindows(prev => [...prev, 'email']);
+                setActiveWindows(prev => {
+                    if (!prev.includes('email')) return [...prev, 'email'];
+                    return prev;
+                });
             };
 
             const sendSms = (text, isMalicious) => {
